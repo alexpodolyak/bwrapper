@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group 'com.bwrapper'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    logbackVersion = '1.2.3'
+    junitVersion = '5.6.2'
+    mockitoVersion = '3.3.3'
+}
+
+dependencies {
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
+
+    testCompile group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveName project.name + '.jar'
+    manifest {
+        attributes 'Author': 'Alexander Podolyak'
+        attributes 'Implementation-Title': project.name
+        attributes 'Implementation-Version': project.version
+    }
+}
