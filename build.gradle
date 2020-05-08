@@ -1,9 +1,10 @@
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 group 'com.bwrapper'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 sourceCompatibility = 1.8
 
@@ -12,14 +13,12 @@ repositories {
 }
 
 ext {
-    logbackVersion = '1.2.3'
     junitVersion = '5.6.2'
     mockitoVersion = '3.3.3'
+    checkstyleVersion = '8.32'
 }
 
 dependencies {
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
-
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
@@ -32,10 +31,33 @@ test {
 }
 
 jar {
-    archiveName project.name + '.jar'
+    archiveName "${project.name}-${project.version}.jar"
     manifest {
-        attributes 'Author': 'Alexander Podolyak'
+        attributes 'Created-By': 'Alexander Podolyak'
+        attributes 'Build-Jdk': JavaVersion.current()
         attributes 'Implementation-Title': project.name
         attributes 'Implementation-Version': project.version
     }
+}
+
+checkstyle {
+    toolVersion checkstyleVersion
+    ignoreFailures = false
+    maxWarnings = 0
+    configProperties = [
+            'com.bwrapper.checkstyle.config': "${rootDir}\\config\\checkstyle"
+    ]
+}
+
+checkstyleTest {
+    enabled = false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
 }
