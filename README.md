@@ -12,6 +12,7 @@ for Java Language objects serializing.
         * [Deserialization](#deserialization)
    * [Get Started](#get-started)
         * [Installation](#installation)
+   * [FAQ](#faq)     
    * [Dependencies](#dependencies)    
    * [Authors](#authors)
    * [License](#license)
@@ -133,7 +134,17 @@ Go to the bwrapper's parent dir and execute command to build the project:
 ./gradlew build
 ```
 After successfull build takes the jar file from ``build/libs``
-folder and add it to Your's prject classpath.
+folder and add it to Your's project classpath.
+
+## FAQ
+
+#### What is this library good for?
+***Bwrapper*** will be very useful for cases when there are need to serialize
+immutable objects for further transferring via network sockets.
+
+#### What's next?
+Future releases will contain some features that reduce memory usage during serialization, 
+makes deserialization more configurable with help of annotations. 
 
 ## Dependencies
 
